@@ -57,7 +57,8 @@ async def cut(message: types.Message):
         ffmpeg.input(f'media/{filename}.mp4', ss=start).output(f'media/{filename}_cutted.mp4', t=duration, c='copy').run()
         await message.reply(f'File is ready. Sending')
         await bot.send_video(message.chat.id, open(f'media/{filename}_cutted.mp4', 'rb'))
-
+        os.remove(f'media/{filename}.mp4')
+        os.remove(f'media/{filename}_cutted.mp4')
     except Exception as e:
         pass
 
